@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - BlogSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-logo">BlogSystem</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{{ url_for('index') }}" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('create') }}" class="nav-link">写文章</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">关于</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 文章详情 -->
+    <main class="main-content">
+        <div class="container">
+            <article class="post-detail">
+                <header class="post-header">
+                    <h1 class="post-title">{{ post.title }}</h1>
+                    <div class="post-meta">
+                        <span class="post-date">发布于 {{ post.date_posted.strftime('%Y年%m月%d日 %H:%M') }}</span>
+                        <span class="post-author">作者：Admin</span>
+                    </div>
+                </header>
+                
+                <div class="post-content">
+                    {{ post.content|replace('\n', '<br>')|safe }}
+                </div>
+                
+                <div class="post-actions">
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">← 返回首页</a>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-outline">编辑</a>
+                        <a href="#" class="btn btn-danger">删除</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 评论区域 -->
+            <section class="comments-section">
+                <h2>评论</h2>
+                
+                <!-- 评论表单 -->
+                <div class="comment-form">
+                    <h3>发表评论</h3>
+                    <form>
+                        <div class="form-group">
+                            <textarea placeholder="写下你的评论..." rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交评论</button>
+                    </form>
+                </div>
+
+                <!-- 评论列表 -->
+                <div class="comments-list">
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <strong>访客用户</strong>
+                            <span class="comment-date">2025年11月15日</span>
+                        </div>
+                        <div class="comment-content">
+                            <p>这是一条示例评论。在实际项目中，这里会显示真实的用户评论。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 更多示例评论 -->
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <strong>另一位访客</strong>
+                            <span class="comment-date">2025年11月14日</span>
+                        </div>
+                        <div class="comment-content">
+                            <p>博客系统看起来很棒！继续努力！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BlogSystem. 基于 Flask 构建。</p>
+            <p>001 - 期末考查项目</p>
+        </div>
+    </footer>
+</body>
+</html>
