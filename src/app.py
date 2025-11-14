@@ -74,6 +74,7 @@ if __name__ == '__main__':
     
     app.run(debug=True, host='0.0.0.0', port=5000)
 
+
 # 用户认证功能 - 由feature/user-authentication分支添加
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 
@@ -83,3 +84,4 @@ login_manager.init_app(app)
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+
