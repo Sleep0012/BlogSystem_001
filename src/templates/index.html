@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSystem - 个人博客</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-logo">BlogSystem</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{{ url_for('index') }}" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('create') }}" class="nav-link">写文章</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">关于</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <header class="page-header">
+                <h1>最新文章</h1>
+                <a href="{{ url_for('create') }}" class="btn btn-primary">写新文章</a>
+            </header>
+
+            <!-- 文章列表 -->
+            <div class="posts-list">
+                {% if posts %}
+                    {% for post in posts %}
+                    <article class="post-card">
+                        <div class="post-header">
+                            <h2 class="post-title">
+                                <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                            </h2>
+                            <div class="post-meta">
+                                <span class="post-date">{{ post.date_posted.strftime('%Y年%m月%d日') }}</span>
+                                <span class="post-author">作者：Admin</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p>{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+                        </div>
+                        <div class="post-footer">
+                            <a href="{{ url_for('post', post_id=post.id) }}" class="read-more">阅读更多 →</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <!-- 空状态 -->
+                    <div class="empty-state">
+                        <h2>还没有文章</h2>
+                        <p>写下你的第一篇文章，开始你的博客之旅吧！</p>
+                        <a href="{{ url_for('create') }}" class="btn btn-primary">创建第一篇文章</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BlogSystem. 基于 Flask 构建。</p>
+            <p>学号后两位：38 - 期末考查项目</p>
+        </div>
+    </footer>
+</body>
+</html>
